@@ -1,6 +1,26 @@
-const graphql = require('graphql');
 
+/*
+* GraphQL schema and Querys
+*
+*/
+
+//Dependencies
+const graphql = require('graphql');
+const _ = require('lodash');
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+
+//Dummy database
+const books = [
+  {name : 'Name of the wind', genre : 'Fantasy', id : '1'},
+  {name : 'Game of thrones', genre : 'Drama', id :'2'},
+  {name : 'Into the badlands', genre : 'Sci-Fi', id : '3'},
+  {name : 'How to kill a mockingbird', genre : 'Adventure', id : '4'}
+
+]
+
+
+
+
 
 //Wireframe for the book object
 const BookType = new GraphQLObjectType({
@@ -19,9 +39,10 @@ const RootQuery  = new GraphQLObjectType({
   fields : {
     book :{
       type : BookType,
-      args : { id : GraphQLString},
+      args : { id : { type : GraphQLString}},
       resolve(parent,args){
-        //Code to interact with the database
+        // find the data asked for
+        return _.find(books,{id : args.id})
       }
     }
   }

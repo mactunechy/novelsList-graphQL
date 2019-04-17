@@ -13,7 +13,8 @@ const schema = require('./schema/index');
 const app = express();
 
 app.use('/graphql',graphqlHTTP({
-  schema
+  schema,
+  graphiql :true
 }));
 
 app.listen(4000,() => {
